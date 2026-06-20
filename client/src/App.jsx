@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { SocketProvider } from './contexts/SocketContext';
+import { Menu, Droplets } from 'lucide-react';
 import './i18n';
 
 import Sidebar from './components/common/Sidebar';
@@ -25,12 +27,33 @@ const ProtectedRoute = ({ children }) => {
   return user ? children : <Navigate to="/login" replace />;
 };
 
-const AppLayout = ({ children }) => (
-  <div className="app-layout">
-    <Sidebar />
-    <main className="main-content">{children}</main>
-  </div>
-);
+const AppLayout = ({ children }) => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  return (
+    <div className={`app-layout ${sidebarOpen ? 'sidebar-open' : ''}`}>
+      {/* Mobile top header */}
+      <header className="mobile-header">
+        <button className="menu-toggle" onClick={() => setSidebarOpen(true)} aria-label="Open menu">
+          <Menu size={20} />
+        </button>
+        <div className="mobile-logo">
+          <Droplets size={18} />
+          <span>AquaPulse</span>
+        </div>
+      </header>
+
+      {/* Sidebar */}
+      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+
+      {/* Backdrop overlay for mobile */}
+      {sidebarOpen && (
+        <div className="sidebar-overlay-backdrop" onClick={() => setSidebarOpen(false)} />
+      )}
+
+      <main className="main-content">{children}</main>
+    </div>
+  );
+};
 
 const AppRoutes = () => {
   const { user } = useAuth();

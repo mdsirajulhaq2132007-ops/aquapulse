@@ -76,7 +76,7 @@ const SourceDetailPage = () => {
             </span>
           )}
         </div>
-        <div style={{ display: 'flex', justifyContent: 'space-around', padding: '16px 0' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: 24, padding: '16px 0' }}>
           <RealTimeMeter param="ph" value={reading?.ph} size={160} />
           <RealTimeMeter param="turbidity" value={reading?.turbidity} size={160} />
           <RealTimeMeter param="temperature" value={reading?.temperature} size={160} />

@@ -4,11 +4,11 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useSocket } from '../../contexts/SocketContext';
 import {
   LayoutDashboard, MapPin, Bell, BarChart3, ShieldCheck,
-  Settings, LogOut, Droplets, Wifi, WifiOff
+  Settings, LogOut, Droplets, Wifi, WifiOff, X
 } from 'lucide-react';
 import './Sidebar.css';
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
   const { user, logout, isAdmin } = useAuth();
   const { connected } = useSocket();
@@ -29,16 +29,21 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="sidebar">
+    <aside className={`sidebar ${isOpen ? 'sidebar-open' : ''}`}>
       {/* Logo */}
       <div className="sidebar-logo">
-        <div className="logo-icon">
-          <Droplets size={22} />
+        <div className="logo-details">
+          <div className="logo-icon">
+            <Droplets size={22} />
+          </div>
+          <div>
+            <div className="logo-name">AquaPulse</div>
+            <div className="logo-tagline">Water Intelligence</div>
+          </div>
         </div>
-        <div>
-          <div className="logo-name">AquaPulse</div>
-          <div className="logo-tagline">Water Intelligence</div>
-        </div>
+        <button className="sidebar-close-btn" onClick={onClose} aria-label="Close sidebar">
+          <X size={18} />
+        </button>
       </div>
 
       {/* Connection status */}
@@ -55,6 +60,7 @@ const Sidebar = () => {
             to={to}
             end={end}
             className={({ isActive }) => `nav-item ${isActive ? 'nav-item-active' : ''}`}
+            onClick={onClose}
           >
             <Icon size={18} />
             <span>{label}</span>
@@ -73,7 +79,7 @@ const Sidebar = () => {
             <div className="user-role">{user?.role === 'admin' ? '⚡ Admin' : '🏥 Health Worker'}</div>
           </div>
         </div>
-        <button className="logout-btn" onClick={handleLogout} title={t('logout')}>
+        <button className="logout-btn" onClick={() => { onClose?.(); handleLogout(); }} title={t('logout')}>
           <LogOut size={16} />
         </button>
       </div>

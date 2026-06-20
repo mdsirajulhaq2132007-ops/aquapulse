@@ -76,9 +76,10 @@
 
 .vd-gauges {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  flex-wrap: wrap;
   padding: 8px 0 12px;
-  gap: 8px;
+  gap: 16px;
 }
 
 .vd-no-reading {

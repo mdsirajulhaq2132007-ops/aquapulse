@@ -16,10 +16,34 @@
 .sidebar-logo {
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: space-between;
   padding: 8px 12px 20px;
   border-bottom: 1px solid var(--color-border);
   margin-bottom: 16px;
+}
+
+.logo-details {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sidebar-close-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.sidebar-close-btn:hover {
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
 }
 
 .logo-icon {
@@ -189,4 +213,22 @@
   background: var(--color-danger-dim);
   border-color: var(--color-danger);
   color: var(--color-danger);
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform var(--transition-normal);
+    box-shadow: none;
+    width: 280px; /* slightly wider for better mobile tap targets */
+  }
+
+  .sidebar.sidebar-open {
+    transform: translateX(0);
+    box-shadow: 10px 0 30px rgba(15, 23, 42, 0.15);
+  }
+
+  .sidebar-close-btn {
+    display: flex;
+  }
 }

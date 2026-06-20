@@ -11,7 +11,7 @@ const char* ssid = "LOHITH_5G";
 const char* password = "Lohith@10";
 
 // URL of the backend API readings endpoint
-const char* SERVER_URL = "http://192.168.1.36:5000/api/readings";
+const char* SERVER_URL = "https://aquapulse-backend-8xwo.onrender.com/api/readings";
 
 // Must match the WaterSource deviceId in MongoDB (set via admin dashboard)
 const char* DEVICE_ID = "ESP32-001";
